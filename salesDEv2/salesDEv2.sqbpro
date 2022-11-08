@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/lyild/Desktop/Phython/SQL 1/salesDEv2/salesDEv2.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="pragmas structure query browser" current="2"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1078"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,8:mainemployee"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="brand" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="59"/><column index="2" value="81"/><column index="3" value="67"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="cars" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="43"/><column index="2" value="59"/><column index="3" value="46"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="employee" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="48"/><column index="2" value="70"/><column index="3" value="54"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="sqlite_sequence" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="43"/><column index="2" value="40"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE vocation_plan (place_id INTEGER, country TEXT, hotel_name date, employee_id date, vacation_length date, budget date);
+INSERT INTO brand(brandId,brandName) VALUES(6,&quot;Tofas&quot;); /*Burda manuel oldugu icin adresi girmemis lasim*/
+INSERT INTO brand(brandName) VALUES(&quot;Dogan&quot;);
+INSERT INTO brand VALUES(8,&quot;Dogan&quot;,&quot;Dogan&quot;);
+CREATE TABLE test (id INTEGER PRIMARY KEY NOT NULL);
+ALTER TABLE brand ADD comment2 TEXT;
+ALTER TABLE brand ALTER comment2 comment4;  /*Bu uygulamada calismiyor*/
+ALTER TABLE brand DROP comment2;
+
+
+DROP TABLE vocation_plan;</sql><sql name="SQL_ödev2">/*ismi belirtilen bir personelin sınıfını*/
+SELECT className
+FROM class
+WHERE classID =
+	(SELECT classID
+	FROM employee
+	WHERE  empName = &quot;Tayyar&quot;);
+	
+/*belirtilen bir marka araçtan kaç adet satıldığını*/
+SELECT count(*) as toplam
+FROM sales
+WHERE brandId in
+	(SELECT brandId
+	FROM brand
+	WHERE  brandName = &quot;BMW&quot;);
+	
+/*her bir marka araçtan kaç adet satıldığını*/
+SELECT brandName, count(*)
+FROM sales
+JOIN brand on sales.brandID = brand.brandId
+GROUP BY sales.brandID ;
+
+/*ismi belirtilen bir personelin sattığı en pahalı aracın markasını*/
+SELECT employee.empName, max(salesPrice), brandName
+FROM sales
+JOIN employee on sales.empId = employee.empId
+JOIN brand on sales.brandID = brand.brandId
+WHERE employee.empName = &quot;Latif&quot;;
+
+/*belirtilen tarih aralığında satış yapan personel listesini*/
+SELECT employee.empName
+FROM sales
+JOIN employee on sales.empId = employee.empId
+WHERE sales.salesDate BETWEEN &quot;2020-01-01&quot; AND &quot;2021-01-01&quot;;
+
+/*usta personelin listesini*/
+SELECT employee.empName
+FROM class
+JOIN employee on class.classID = employee.classID
+WHERE class.classID= 2;
+
+/*ustalar ile çıraklar arasındaki satış toplamı farkını*/
+SELECT sum(sales.salesPrice) as hele
+FROM employee
+JOIN class on class.classID = employee.classID
+JOIN sales on sales.empId = employee.empId
+GROUP BY employee.classID
+ORDER BY hele;
+
+
+/*en fazla satış yapan personel ile en az satış yapan personel bilgilerini getiren SWL ifadelerini bulunuz*/
+SELECT empId, count(empId) as sayi
+FROM sales
+GROUP BY sales.empId;</sql><current_tab id="0"/></tab_sql></sqlb_project>

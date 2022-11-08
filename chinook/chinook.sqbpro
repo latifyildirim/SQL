@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/lyild/Desktop/Phython/SQL 1/chinook/chinook.db" readonly="0" foreign_keys="0" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="0" synchronous="1"/><attached/><window><main_tabs open="query pragmas structure browser" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="3862"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainalbums"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="albums" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="61"/><column index="2" value="300"/><column index="3" value="59"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="artists" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="59"/><column index="2" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="genres" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="59"/><column index="2" value="112"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="media_types" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="90"/><column index="2" value="164"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="playlists" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="67"/><column index="2" value="155"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="tracks" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="5" mode="0"/></sort><column_widths><column index="1" value="56"/><column index="2" value="300"/><column index="3" value="61"/><column index="4" value="90"/><column index="5" value="59"/><column index="6" value="300"/><column index="7" value="84"/><column index="8" value="63"/><column index="9" value="65"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">/*bir tablodan bir alan getirmek*/
+SELECT Title FROM albums;
+/* emploxe tablosoundan ad ve soyad alanlarini getir*/
+SELECT LastName, FirstName FROM employees;
+/*employes tablosundaki tüm elemanlari getir*/
+SELECT * FROM employees;
+/*tracks tablosundan name ve Composer verilerini cek*/
+SELECT name,Composer 
+FROM tracks;
+/*albums tablosundaki tüm verileri getir*/
+SELECT *
+FROM albums;
+/**/
+SELECT DISTINCT name,Composer
+FROM tracks;
+
+SELECT DISTINCT City FROM customers;
+SELECT DISTINCT AlbumId,MediaTypeId from tracks;
+
+SELECT *
+FROM  tracks WHERE Composer = &quot;Jimi Hendrix&quot; LIMIT 3;
+
+SELECT *
+FROM invoices
+WHERE total&gt;10
+ORDER BY total DESC;
+
+SELECT *
+FROM invoices
+WHERE NOT BillingCountry= &quot;USA&quot;
+ORDER BY total DESC;
+
+SELECT FirstName,LastName,Country
+FROM customers
+WHERE Country 
+in (&quot;Belgium&quot;, &quot;Norway&quot;, &quot;Canada&quot;, &quot;USA&quot;);
+
+SELECT FirstName,LastName,Country
+FROM customers
+WHERE Country =&quot;Belgium&quot; or Country = &quot;Norway&quot; or Country = &quot;Canada&quot; or Country = &quot;USA&quot;;
+
+ 
+SELECT name
+FROM Tracks
+WHERE Composer like &quot;%D%&quot;;
+
+SELECT count (name) as &quot;sayi&quot;
+FROM tracks;
+
+SELECT COUNT (Composer) as say_bakalim /*NULL degerler dahil degil*/
+FROM tracks;
+
+SELECT count (State) as &quot;BOS yapmaaaa&quot;
+FROM customers;
+
+SELECT count (*) as &quot;BOS yapmaaaa&quot;
+FROM customers;
+
+SELECT count ()&quot;Toplam&quot;,count (state) as &quot;BOS yapmaaaa&quot;
+FROM customers;
+
+SELECT count (*) as &quot;BOS yapmaaaa&quot;
+FROM invoices;
+
+SELECT count (DISTINCT Composer) as &quot;BOS yapmadann&quot;
+FROM tracks;
+
+SELECT name, max(Milliseconds) as &quot;BOS yapmadann&quot;
+FROM tracks;
+
+SELECT name, avg(Milliseconds) as &quot;Parca ortalama uzunlu&quot;
+FROM tracks;
+
+SELECT name, avg(Milliseconds)
+FROM tracks;
+
+SELECT *
+FROM tracks
+WHERE Milliseconds &gt;(SELECT avg(Milliseconds)FROM tracks)
+LIMIT 5;
+
+SELECT Composer, count(name) as parca_sayisi
+FROM tracks
+GROUP BY Composer;
+
+
+
+
+
+</sql><sql name="SQL 3">/*bir tablodan bir alanı getirmek*/
+SELECT Title FROM albums;
+/*employee tablosundan adve syoad alanlarını getir */
+SELECT LastName,FirstName FROM employees;
+/*employees tablosundaki tüm verileri getir*/
+SELECT * from employees;
+/*tracks tablosundan name ve composer alanlarını getir*/
+SELECT name,Composer 
+FROM tracks;
+/*tracks tablosundan name ve composer alanlarını tekrar etmeyecek şekilde getir*/
+SELECT  DISTINCT Composer 
+FROM tracks;
+SELECT  DISTINCT Country,City 
+FROM customers;
+SELECT DISTINCT AlbumId,MediaTypeId FROM tracks;
+/*tracks albumunde composer ı jimi hendrix olanları getir*/
+SELECT * from tracks WHERE Composer ='Jimi Hendrix' limit 3;
+/*toplam tutarı 10 $ dan fazla olan faturalardan 4 tanesini getir*/
+SELECT * 
+FROM invoices 
+WHERE total&gt;10;
+/*toplam tutarı 10$dan fazla olan faturların bilgilerini getir. Toplam miktara göre azalan sırada getir*/
+SELECT * FROM invoices WHERE total&gt;10 ORDER by total DESC;
+/*Ülkesi ABD olmayan faturaların bilgilerini getir. total e göre artan düzende sırala*/
+SELECT * FROM invoices WHERE NOT BillingCountry='USA' ORDER by total;
+/*fatura tarihi 2009 ile 2011 arasında olaları getir  */
+SELECT * FROM invoices WHERE InvoiceDate BETWEEN '2009-01-01' AND '2011-12-31 00:00:00' ORDER by InvoiceDate DESC; 
+/*aynı soru between yerine and ile*/
+SELECT * FROM invoices WHERE InvoiceDate&gt;='2009-01-01' AND InvoiceDate&lt;='2011-12-31'; 
+/*Belçika, Norveç, Kanada ve ABD'den sipariş veren müşterilerin adını ve soyadını getirin*/
+SELECT Country,FirstName,LastName 
+FROM customers
+WHERE Country IN ('Belgium','Norway','Canada','USA') ORDER by Country; 
+SELECT Country,FirstName,LastName 
+FROM customers
+WHERE Country ='Belgium' or Country ='Norway'or Country ='Canada' or Country ='USA' ORDER by Country;
+
+/*aggrigation functions*/
+/* tracks tablosunda kaç kayıt var */
+SELECT count(*) from tracks;
+/*null değerler dahil*/
+SELECT count(Composer) as toplam_besteci_sayisi from tracks; 
+/*null değerler dahil DEGİL*/
+SELECT count(State) from customers where state NOTNULL;
+SELECT count(Company) from customers;
+SELECT count(*) as toplam_sayi,count(state) as toplam_state_sayisi from customers;
+ 
+/**/
+SELECT COUNT(*) FROM invoices;
+/*mağazada kaç farklı besteci var*/
+SELECT count(DISTINCT Composer) from tracks;
+/*maksimum süreye sahip parça*/
+SELECT max(Milliseconds)as en_uzun_parca from tracks;
+/*maksimum süreye sahip parça*/
+SELECT avg(Milliseconds) as parcaların_ort_suresi from tracks;
+/*faturaların toplam tutarı*/
+SELECT sum(total) as toplam_miktar, avg(total) as ortalama_fatura, min(total) as en_dusuk, max(total) as en_yuksek 
+from invoices;
+
+SELECT avg(Milliseconds) as parcaların_ort_suresi from tracks;
+select * from tracks WHERE Milliseconds&gt;393599.212103911;
+/*asıl yol*/
+SELECT count(*) from tracks 
+WHERE Milliseconds&gt;(SELECT avg(Milliseconds) as parcaların_ort_suresi from tracks);
+/*her bestecinin toplam parca sayısı. name ve composer sütünlarını getir*/
+SELECT Composer,count(*) as par_sayisi from tracks GROUP by Composer order by par_sayisi DESC; </sql><sql name="U_171022">/*Herbir parcanin adini getir*/
+
+SELECT invoices.InvoiceId, invoices.CustomerId, customers.CustomerId, customers.FirstName
+
+FROM invoices
+
+INNER JOIN customers ON invoices.CustomerId = customers.CustomerId;
+
+
+
+/*Find the artists album info*/
+
+SELECT artists.Name, albums.Title
+
+FROM artists
+
+LEFT JOIN albums ON artists.ArtistId = albums.ArtistId;
+
+
+
+
+
+
+
+/* heyyyy*/
+
+SELECT TrackId, name, AlbumId
+
+FROM tracks
+
+WHERE AlbumId =(SELECT AlbumId FROM albums WHERE Title=&quot;Faceless&quot;);
+
+
+
+/*eski method*/
+
+SELECT tracks.TrackId, tracks.Name, tracks.AlbumId
+
+FROM tracks
+
+JOIN albums ON albums.AlbumId = tracks.AlbumId
+
+WHERE albums.Title = &quot;Faceless&quot;;
+
+
+
+
+
+SELECT tracks.TrackId, tracks.Name, tracks.AlbumId
+
+FROM tracks
+
+JOIN albums on albums.AlbumId = tracks.AlbumId
+
+WHERE albums.Title in (&quot;Faceless&quot; , &quot;Let There Be Rock&quot;);
+
+ 
+
+ 
+
+SELECT TrackId, name, AlbumId
+
+FROM tracks
+
+WHERE AlbumId in (SELECT AlbumId FROM albums WHERE Title in (&quot;Faceless&quot;, &quot;Let There Be Rock&quot;));
+
+
+
+
+
+SELECT tracks.TrackId, tracks.Name, tracks.AlbumId
+
+FROM tracks
+
+JOIN albums on albums.AlbumId = tracks.AlbumId
+
+WHERE albums.Title in (&quot;Faceless&quot; , &quot;Let There Be Rock&quot;);
+
+
+
+
+
+SELECT tracks.TrackId, tracks.Name, tracks.AlbumId
+
+FROM tracks
+
+JOIN albums on albums.AlbumId = tracks.AlbumId
+
+WHERE albums.Title in (&quot;Faceless&quot; , &quot;Let There Be Rock&quot;);
+
+
+
+/* farkli yerlerden*/
+
+
+
+SELECT tracks.Name as adad, albums.Title as asdads, genres.Name as asdasd, media_types.Name as cece
+
+From tracks
+
+JOIN albums on tracks.AlbumId=albums.AlbumId
+
+JOIN genres on tracks.GenreId=genres.GenreId
+
+JOIN media_types on tracks.MediaTypeId=media_types.MediaTypeId;
+
+
+
+SELECT tracks.name as parcaIsmi,albums.Title as albumIsmi,genres.name as turIsmi, media_types.Name as medyaTipi
+
+from tracks join albums on tracks.AlbumId=albums.AlbumId
+
+join genres on tracks.GenreId=genres.GenreId 
+
+join media_types on tracks.MediaTypeId=media_types.MediaTypeId;
+
+
+
+/*yeni deneme*/
+SELECT *
+FROM tracks
+WHERE tracks.TrackId in
+		(SELECT playlist_track.TrackId 
+		FROM playlist_track
+		WHERE playlist_track.PlaylistId=
+			(SELECT playlists.PlaylistId 
+			FROM playlists 
+			WHERE playlists.Name =&quot;Grunge&quot;
+			)
+		)
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sql><current_tab id="2"/></tab_sql></sqlb_project>

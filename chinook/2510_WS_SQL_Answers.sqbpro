@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/lyild/Desktop/Phython/SQL 1/chinook/chinook.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="150"/><column_width id="3" width="3862"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainalbums"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="albums" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="61"/><column index="2" value="300"/><column index="3" value="59"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">
+/*1- WRITE A QUERY THAT RETURNS TRACK NAME AND ITS COMPOSER FROM 
+TRACKS TABLE*/
+SELECT name, Composer
+FROM tracks;
+
+/*2- WRITE A QUERY THAT RETURNS ALL COLUMNS FROM TRACKS TABLE*/
+SELECT *
+FROM tracks;
+
+/*3- WRITE A QUERY THAT RETURNS THE NAME OF COMPOSERS OF EACH 
+TRACK*/
+SELECT DISTINCT Composer
+FROM tracks;
+
+/*4- WRITE A QUERY THAT RETURNS UNIQUE ALBUMID, MEDIATYPEID FROM 
+TRACKS TABLE*/
+
+SELECT DISTINCT AlbumId, MediaTypeId
+FROM tracks;
+
+
+/*5- WRITE A QUERY THAT RETURNS TRACK NAME AND TRACKID OF ‘Jorge 
+Ben’*/
+
+SELECT name, TrackId
+FROM tracks
+WHERE Composer = 'Jorge Ben';
+
+/*6- WRITE A QUERY THAT RETURNS ALL INFO OF THE INVOICES OF WHICH 
+TOTAL AMOUNT IS GREATER THAN $25*/
+
+SELECT * 
+FROM invoices
+WHERE Total &gt; 25;
+
+/*7- WRITE A QUERY THAT RETURNS ALL INFO OF THE INVOICES OF WHICH 
+TOTAL AMOUNT IS LESS THAN $15. JUST RETURN 5 ROWS*/
+SELECT *
+FROM invoices
+WHERE total &lt; 15
+LIMIT 5;
+
+/*8- WRITE A QUERY THAT RETURNS ALL INFO OF THE INVOICES OF WHICH 
+TOTAL AMOUNT IS GREATER THAN $10. THEN SORT THE TOTAL AMOUNTS 
+IN DESCENDING ORDER, LASTLY DISPLAY TOP 2 ROWS*/
+
+SELECT *
+FROM invoices
+WHERE total &gt; 10
+ORDER BY total DESC
+LIMIT 2;
+
+/*9- WRITE A QUERY THAT RETURNS ALL INFO OF THE INVOICES OF WHICH 
+BILLING COUNTRY IS NOT CANADA. THEN SORT THE TOTAL AMOUNTS IN 
+ASCENDING ORDER, LASTLY DISPLAY TOP 10 ROWS*/
+
+SELECT *
+FROM invoices
+WHERE NOT BillingCountry = &quot;Canada&quot; /*ya da NOT yazmadan = yerine &lt;&gt; kullanabiliriz*/
+ORDER BY Total DESC
+LIMIT 10;
+
+/*10- WRITE A QUERY THAT RETURNS INVOICEID, CUSTOMERID AND TOTAL 
+DOLLAR AMOUNT FOR EACH INVOICE. THEN SORT THEM FIRST BY 
+CUSTOMERID IN ASCENDING, THEN TOTAL DOLLAR AMOUNT IN 
+DESCENDING ORDER.*/
+SELECT InvoiceId, CustomerId, total
+FROM invoices
+ORDER BY CustomerId, Total DESC;
+
+
+/*11- WRITE A QUERY THAT RETURNS ALL TRACK NAMES THAT START WITH ‘B’ 
+AND END WITH ‘S’*/
+
+SELECT name
+FROM tracks
+WHERE name LIKE 'B%S'; /* name LIKE 'B%' and name LIKE '%s' seklinde de olabilir*/
+
+/*12- WRITE A QUERY THAT RETURNS THE NEWEST DATE AMONG THE INVOICE 
+DATES BETWEEN 2008 AND 2011*/
+
+SELECT InvoiceDate
+FROM invoices
+WHERE InvoiceDate BETWEEN '2008-01-01' AND '2012-01-01'
+ORDER BY InvoiceDate DESC
+LIMIT 1; 
+
+/*13- WRITE A QUERY THAT RETURNS THE FIRST AND LAST NAME OF THE 
+CUSTOMERS WHO HAVE ORDERS FROM NORWAY AND BELGIUM*/
+
+SELECT FirstName, LastName, Country
+FROM customers
+WHERE Country IN ('Norway', 'Belgium');
+
+/*14- WRITE A QUERY THAT RETURNS THE TRACK NAMES OF ‘ZAPPA’*/
+
+SELECT name, Composer
+FROM tracks
+WHERE Composer LIKE '%Zappa';
+
+
+/*15 HOW MANY TRACKS AND INVOICES ARE THERE IN THE DIGITAL MUSIC 
+STORE, DISPLAY SEPERATELY*/
+
+SELECT COUNT(*) as Track_adedi
+FROM tracks;
+
+SELECT COUNT(*) as Invoice_Adedi
+FROM invoices;
+
+/*16- HOW MANY COMPOSERS ARE THERE IN THE DIGITAL MUSIC STORE*/
+
+SELECT COUNT(DISTINCT Composer) as Composer_adedi
+FROM tracks;
+
+/*17- HOW MANY TRACKS DOES EACH ALBUM HAVE, DISPLAY ALBUMID AND 
+NUMBER OF TRACKS SORTED FROM HIGHEST TO LOWEST*/
+
+SELECT AlbumId, COUNT(*) as track_adedi
+FROM tracks
+GROUP BY AlbumId
+ORDER BY track_adedi DESC;
+
+/*18- WRITE A QUERY THAT RETURNS TRACK NAME HAVING THE MINIMUM AND 
+MAXIMUM DURATION, DISPLAY SEPERATELY*/
+SELECT name, MIN(Milliseconds)
+FROM tracks;
+	
+SELECT name, MAX(Milliseconds)
+FROM tracks;
+
+/*19- WRITE A QUERY THAT RETURNS THE TRACKS HAVING DURATION LESS 
+THAN THE AVERAGE DURATION*/
+SELECT name, Milliseconds
+FROM tracks
+WHERE Milliseconds &lt; 
+	(SELECT AVG(Milliseconds) from tracks);
+
+
+/*20- WRITE A QUERY THAT RETURNS THE TOTAL NUMBER OF EACH 
+COMPOSER’s TRACK.*/
+
+SELECT Composer, COUNT(Composer) as sarki_sayisi
+FROM tracks
+GROUP BY  Composer;
+
+/*21- WRITE A QUERY THAT RETURNS THE GENRE OF EACH TRACK.*/
+
+SELECT t.name, g.name
+FROM tracks as t
+JOIN genres as g
+ON t.GenreId = g.GenreId;
+
+/*22- WRITE A QUERY THAT RETURNS THE ARTIST’s ALBUM INFO.*/
+
+SELECT *
+FROM artists
+LEFT JOIN albums
+ON albums.AlbumId = artists.ArtistId;
+
+/*23- WRITE A QUERY THAT RETURNS THE MINIMUM DURATION OF THE TRACK 
+IN EACH ALBUM. DISPLAY ALBUMID, ALBUM TITLE AND DURATION OF THE 
+TRACK. THEN SORT THEM FROM HIGHEST TO LOWEST*/
+
+SELECT a.AlbumId, a.Title, MIN(t.Milliseconds) as min_duration
+FROM albums as a
+JOIN tracks as t
+ON a.AlbumId = t.AlbumId
+GROUP BY a.AlbumId, a.Title
+ORDER BY min_duration DESC;
+
+/*24- WRITE A QUERY THAT RETURNS ALBUMS WHOSE TOTAL DURATION IS 
+HIGHER THAN 60 MIN. DISPLAY ALBUM TITLE AND THEIR DURATIONS.THEN 
+SORT THE RESULT FROM HIGHEST TO LOWEST*/
+
+SELECT albums.Title, SUM(tracks.Milliseconds) AS total_duration
+FROM tracks
+JOIN albums 
+ON tracks.AlbumId = albums.AlbumId
+GROUP BY tracks.AlbumId
+HAVING total_duration &gt; 3600000
+ORDER BY total_duration DESC;
+
+
+/*25- WRITE A QUERY THAT RETURNS TRACKID, TRACK NAME AND ALBUMID 
+INFO OF THE ALBUM WHOSE TITLE ARE ‘Prenda Minha’, 'Heart of the Night' 
+AND 'Out Of Exile'.*/
+SELECT t.TrackId, t.name, t.AlbumId, a.Title
+FROM tracks t
+JOIN albums a
+ON t.AlbumId = a.AlbumId
+WHERE a.Title IN ('Prenda Minha', 'Heart of the Night', 'Out Of Exile');
+
+SELECT Trackid, Name, Albumid
+FROM tracks
+WHERE albumid IN (
+ SELECT AlbumId
+ FROM albums
+ WHERE Title IN ('Prenda Minha', 'Heart of the Night', 'Out Of Exile'));</sql><current_tab id="0"/></tab_sql></sqlb_project>

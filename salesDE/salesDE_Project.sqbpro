@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/lyild/Desktop/Phython/SQL 1/salesDE/salesDE.db" readonly="0" foreign_keys="0" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="0" synchronous="1"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="150"/><column_width id="3" width="1171"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,5:mainsales"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="sales" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="97"/><column index="2" value="73"/><column index="3" value="51"/><column index="4" value="67"/><column index="6" value="73"/><column index="7" value="73"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL Unterricht">/*satışları yakın tarihten uzak tarihe sıralayınız*/
+select *
+from Sales
+where salesDate
+ORDER BY salesDate ASC;
+
+/*satıcı ismine göre yapılan  satışları sıralayınız*/
+select *
+from Sales
+where salesDate
+ORDER BY name ASC;
+
+/*belirtilen bir satıcının satışlarını listeleyiniz*/
+select name, carBrand
+from Sales
+where name = &quot;Ahmet&quot;;
+
+/*toplam personel sayısını bulunuz*/
+select count(DISTINCT name) as Toplam_personel_sayisi
+from Sales;
+
+/*kaç farklı marka satılmaktadır*/
+select count(DISTINCT carBrand) as Toplam_Marka_sayisi
+from Sales;
+
+/*her bir markadan kaç adet satılmıştır*/
+select carBrand,count(carBrand) 
+from Sales
+GROUP BY carBrand
+ORDER BY name ASC;
+
+/*araçların toplam alış fiyatı nedir*/
+select sum(purchasePrice) as Araclarin_Toplam_Alis_Fiyati
+from Sales;
+
+/*araçların toplam satış fiyatı nedir*/
+select sum(salesPrice) as Araclarin_Toplam_sais_Fiyati
+from Sales;
+/*her bir satış için ne kadar kar / zarar edildiğini bulunuz*/
+select transactionID, (salesPrice-purchasePrice)
+from Sales
+where salesDate
+ORDER BY transactionID;
+
+/*toplamda ne kadar kar /zarar edildiğini bulunuz*/
+select sum(salesPrice-purchasePrice) as Toplam_kar_zarar
+from Sales
+where salesDate
+ORDER BY transactionID;
+
+
+/*her bir yıl kaç adet satış gerçekleşmiştir*/
+select count(salesDate) as &quot;1=2020 2=2021 3=2022 yillari satis sayilari&quot;
+from Sales
+where salesDate &gt;=  '2020' 
+GROUP BY salesDate like &quot;2020%&quot;, salesDate like &quot;2021%&quot;
+ORDER BY salesDate ASC;
+/*A F*/
+SELECT strftime(&quot;%Y&quot;, salesDate) as year, count(*) 
+FROM sales
+GROUP BY year
+ORDER BY year;
+/*ALTERNATIF*/
+SELECT strftime(&quot;%Y&quot;, salesDate) as year, strftime(&quot;%m&quot;, salesDate) as month, count(*) 
+FROM sales
+GROUP BY year, month
+ORDER BY year, month;
+
+/*adet olarak en fazla satış yapan personel kimdir*/
+SELECT name, count(name) as adet_satis
+FROM sales
+GROUP BY name
+ORDER BY adet_satis DESC LIMIT 1;
+
+
+
+
+
+
+</sql><sql name="SQL_odev">/*1. satışları yakın tarihten uzak tarihe sıralayınız*/
+SELECT * FROM sales Order By salesDate DESC;
+
+/*2. satıcı ismine göre yapılan  satışları sıralayınız*/
+SELECT * FROM sales GROUP BY name;
+
+/*3. belirtilen bir satıcının satışlarını listeleyiniz*/
+SELECT * FROM sales WHERE name=&quot;Bekir&quot;;
+
+/*4. toplam personel sayısını bulunuz*/
+SELECT count(Distinct  name) From sales;
+
+/*5. kaç farklı marka satılmaktadır*/
+SELECT COUNT (DISTINCT  carBrand) FROM sales;
+
+
+/*6. her bir markadan kaç adet satılmıştır*/
+SELECT carBrand, COUNT(*)  FROM sales GROUP By carBrand;
+
+
+/*7. araçların toplam alış fiyatı nedir*/
+SELECT sum(purchasePrice) FROM sales;
+
+
+/*8.araçların toplam satış fiyatı nedir*/
+SELECT sum(salesPrice) FROM sales;
+
+/* 9. her bir satış için ne kadar kar / zarar edildiğini bulunuz*/
+SELECT carBrand, (salesPrice-purchasePrice) as Kar_Zarar FROM sales;
+
+
+/* 10. toplamda ne kadar kar /zarar edildiğini bulunuz*/
+SELECT sum(salesPrice-purchasePrice) as Kar_Zarar FROM sales;
+
+
+/* 11. her bir yıl kaç adet satış gerçekleşmiştir*/
+SELECT STRFTIME('%Y', salesDate) as yil, count(*) From sales GROUP By yil;
+
+
+/* 12. adet olarak en fazla satış yapan personel kimdir*/
+SELECT name, count(*) FROM sales GROUP BY name;
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
