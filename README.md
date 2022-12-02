@@ -34,7 +34,50 @@ $ CREATE TABLE "alanparadise/nw"."items"
 ```
 #####
 ```
-
 ```
+#####
+```
+```
+## SQL VIEWS
+
+##### Base Query
+```
+CREATE VIEW "alanparadise/nw"."TopEmployeesOrders" AS
+   SELECT LastName, Firstname, sum(unitprice * quantity) as "Total Sales"
+       from "alanparadise/nw"."employees" E JOIN
+         "alanparadise/nw"."orders" O ON E.employeeid = O.employeeid JOIN
+                "alanparadise/nw"."orderdetails" D ON O.orderid = D.orderid
+   GROUP BY LastName, FirstName
+Order By 3 desc LIMIT 5;
+```
+#####
+```
+```
+#####
+```
+```
+#####
+```
+```
+#####
+```
+```
+#####
+```
+```
+#####
+```
+```
+#####
+```
+```
+#####
+```
+```
+
+
+
+
+
 
 
