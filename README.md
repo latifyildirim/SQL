@@ -1,1 +1,2 @@
-# SQL
+# The Structured Query Language (SQL)
+====
