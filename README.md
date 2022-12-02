@@ -1,8 +1,11 @@
-# The Structured Query Language (SQL)
-===============
+# The Structured Query Language (SQL) 
 <hr>
+<hr>
+
 ### Index
+
 * [Kurulum](#kurulum)
+* [Yapılandırma](#yapılandırma)
 
 
 <hr>
@@ -14,7 +17,6 @@
 ```
 $ CREATE SCHEMA "alanparadise/nw";
 ```
-
 ##### Tabloyu siler:
 ```
 $ DROP TABLE IF EXISTS "alanparadise/nw"."items";
