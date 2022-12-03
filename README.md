@@ -50,8 +50,22 @@ CREATE VIEW "alanparadise/nw"."TopEmployeesOrders" AS
    GROUP BY LastName, FirstName
 Order By 3 desc LIMIT 5;
 ```
-#####
+##### Let’s drop and recreate your view from Lab 11, adding a CASE expression.
 ```
+DROP VIEW "alanparadise/nw"."TopCustomers";
+
+CREATE VIEW "alanparadise/nw"."TopCustomers" as 
+SELECT contactname, sum(D.unitprice * D.quantity) as "Total Sales",
+  CASE
+        WHEN sum(D.unitprice * D.quantity) < 60000 THEN 'fakir'
+        WHEN sum(D.unitprice * D.quantity) < 110000 THEN 'orta'
+        ELSE 'zengin'
+  END para
+  FROM "alanparadise/nw"."customers" C JOIN
+         "alanparadise/nw"."orders" O ON C.customerid  =  O.customerid JOIN 
+          "alanparadise/nw"."orderdetails" D ON O.orderid  =  D.orderid
+GROUP BY contactname 
+Order By 2 desc LIMIT 5;
 ```
 #####
 ```
