@@ -67,11 +67,19 @@ SELECT contactname, sum(D.unitprice * D.quantity) as "Total Sales",
 GROUP BY contactname 
 Order By 2 desc LIMIT 5;
 ```
-#####
+##### Let's create a table that uses an id (array) as the unique identifier for each row we add.
 ```
+CREATE TABLE "alanparadise/nw"."shoppers" 
+(
+        ShopperID int NOT NULL GENERATED ALWAYS AS IDENTITY,
+        ShopperName varchar(40) NOT NULL ,
+        Phone varchar(20) NOT NULL DEFAULT '0'
+);
 ```
-#####
+##### Let's insert a new row into the shoppers table. 
 ```
+INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
+        VALUES ('LATIF', '800-221')
 ```
 #####
 ```
