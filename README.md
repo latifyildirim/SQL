@@ -81,20 +81,229 @@ CREATE TABLE "alanparadise/nw"."shoppers"
 INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
         VALUES ('LATIF', '800-221')
 ```
-#####
+##### 1
+```
+
+```
+##### 2
+```
+
+```
+##### 3
+```
+
+```
+##### 4
+```
+
+```
+##### 5
+```
+
+```
+##### 6
+```
+CREATE VIEW "alanparadise/nw"."TopEmployeesOrders" AS
+SELECT LastName, Firstname, sum(unitprice * quantity) as
+"Total Sales"
+from "alanparadise/nw"."employees" E JOIN
+"alanparadise/nw"."orders" O ON E.employeeid = O.employeeid JOIN
+"alanparadise/nw"."orderdetails" D ON O.orderid = D.orderid
+GROUP BY LastName, FirstName
+Order By 3 desc LIMIT 5;
+```
+##### 7
+```
+TRUNCATE TABLE "alanparadise/nw"."shoppers";
+INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
+VALUES ('LATIF', '800-221');
+INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
+VALUES ('PeterParker', '800-987-6543');
+INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
+VALUES ('BartSimpson', '800-888-6969');
+INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
+VALUES ('ClarkKent', '800-999-2468');
+```
+##### 8
+```
+SELECT  EmployeeNumber, LastName, FirstName
+FROM "alanparadise/cm"."employees" e JOIN
+ "alanparadise/cm"."Customers" c ON e."employeenumber" = c."salesrepemployeenumber"
+ 
+WHERE (Firstname || ' ' || Lastname) = 'Diane Murphy' or (Firstname || ' ' || Lastname) = 'Gerard Bondur'
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
 ```
 ```
-#####
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
 ```
 ```
-#####
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
 ```
 ```
-#####
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
 ```
 ```
-#####
+##### 
 ```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
+```
+##### 
+```
+
 ```
 
 
