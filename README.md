@@ -224,7 +224,6 @@ WHERE (Firstname || ' ' || Lastname) = 'Diane Murphy' or (Firstname || ' ' || La
 ```
 
 ```
-```
 ##### 
 ```
 
