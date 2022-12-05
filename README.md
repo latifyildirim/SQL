@@ -97,11 +97,18 @@ ORDER BY 1;
 ``` 
 ##### 2. List the EmployeeNumber, LastName, FirstName, Extension for all employees working out of the Paris office. (5)
 ```
-
+SELECT  EmployeeNumber, LastName, FirstName, Extension
+    FROM "alanparadise/cm"."offices" of JOIN
+        "alanparadise/cm"."employees" e ON of."officecode" = e."officecode" 
+WHERE of.city = 'Paris'
+ORDER BY 1;
 ```
 ##### 3. List the ProductCode, ProductName, ProductVendor, QuantityInStock and ProductLine for all products with a QuantityInStock between 200 and 1200. (11) 
 ```
-
+SELECT  ProductCode, ProductName, ProductVendor, QuantityInStock, ProductLine
+    FROM "alanparadise/cm"."products" 
+WHERE QuantityInStock >200 and QuantityInStock < 1200
+ORDER BY 1;
 ```
 ##### 4. (Use a SUBQUERY) List the ProductCode, ProductName, ProductVendor, BuyPrice and MSRP for the least expensive (lowest MSRP) product sold by ClassicModels. (“MSRP” is the Manufacturer’s Suggested Retail Price.)  (1)
 ```
