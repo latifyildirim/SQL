@@ -112,46 +112,47 @@ ORDER BY 1;
 ```
 ##### 4. (Use a SUBQUERY) List the ProductCode, ProductName, ProductVendor, BuyPrice and MSRP for the least expensive (lowest MSRP) product sold by ClassicModels. (“MSRP” is the Manufacturer’s Suggested Retail Price.)  (1)
 ```
-
+SELECT  ProductCode, ProductName, ProductVendor, BuyPrice, MSRP
+    FROM "alanparadise/cm"."products"
+    WHERE "productline" = 'Classic Cars'
+ ORDER BY msrp
+ LIMIT 1;
 ```
 ##### 5. What is the ProductName and Profit of the product that has the highest profit (profit = MSRP minus BuyPrice). (1)
 ```
-
+SELECT  ProductName, (MSRP-Buyprice) as "Profit"
+    FROM "alanparadise/cm"."products" 
+ ORDER BY (MSRP-Buyprice) DESC
+ LIMIT 1;
 ```
 ##### 6. List the country and the number of customers from that country for all countries having just two  customers.  List the countries sorted in ascending alphabetical order. Title the column heading for the count of customers as “Customers”. (7)
 ```
-CREATE VIEW "alanparadise/nw"."TopEmployeesOrders" AS
-SELECT LastName, Firstname, sum(unitprice * quantity) as
-"Total Sales"
-from "alanparadise/nw"."employees" E JOIN
-"alanparadise/nw"."orders" O ON E.employeeid = O.employeeid JOIN
-"alanparadise/nw"."orderdetails" D ON O.orderid = D.orderid
-GROUP BY LastName, FirstName
-Order By 3 desc LIMIT 5;
+SELECT  country, count(customernumber) as "Customers"
+        FROM "alanparadise/cm"."Customers" 
+GROUP BY country
+HAVING count(customernumber) = 2
+ORDER BY 1;
 ```
 ##### 7. List the ProductCode, ProductName, and number of orders for the products with exactly 25 orders.  Title the column heading for the count of orders as “OrderCount”.  (12)
 ```
-TRUNCATE TABLE "alanparadise/nw"."shoppers";
-INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
-VALUES ('LATIF', '800-221');
-INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
-VALUES ('PeterParker', '800-987-6543');
-INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
-VALUES ('BartSimpson', '800-888-6969');
-INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
-VALUES ('ClarkKent', '800-999-2468');
+SELECT p.ProductCode, p.ProductName, count(ordernumber) as "OrderCount"
+        FROM "alanparadise/cm"."products" p JOIN
+        "alanparadise/cm"."orderdetails" o On p."productcode" = p."productcode"
+        WHERE "quantityordered" = 25
+GROUP BY 1,2
+ORDER BY 1;
 ```
 ##### 8. List the EmployeeNumber, Firstname + Lastname  (concatenated into one column in the answer set, separated by a blank and referred to as ‘name’) for all the employees reporting to Diane Murphy or Gerard Bondur. (8)
 ```
-SELECT  EmployeeNumber, LastName, FirstName
-FROM "alanparadise/cm"."employees" e JOIN
- "alanparadise/cm"."Customers" c ON e."employeenumber" = c."salesrepemployeenumber"
- 
-WHERE (Firstname || ' ' || Lastname) = 'Diane Murphy' or (Firstname || ' ' || Lastname) = 'Gerard Bondur'
+SELECT  EmployeeNumber, (Firstname || ' ' || Lastname) as name
+FROM "alanparadise/cm"."employees" 
+WHERE reportsto in (1002, 1102);
 ```
 ##### 9. List the EmployeeNumber, LastName, FirstName of the president of the company (the one employee with no boss.)  (1)
 ```
-
+SELECT  EmployeeNumber, LastName, FirstName
+FROM "alanparadise/cm"."employees" 
+WHERE reportsto is NULL;
 ```
 ##### 10. List the ProductName for all products in the “Classic Cars” product line from the 1950’s.(6)
 ```
