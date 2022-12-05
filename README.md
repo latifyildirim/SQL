@@ -156,7 +156,9 @@ WHERE reportsto is NULL;
 ```
 ##### 10. List the ProductName for all products in the “Classic Cars” product line from the 1950’s.(6)
 ```
-
+SELECT   ProductName
+FROM "alanparadise/cm"."products" 
+WHERE Productline = 'Classic Cars';
 ```
 ##### 11. List the month name and the total number of orders for the month in 2004 in which ClassicModels customers placed the most orders. (1)
 ```
