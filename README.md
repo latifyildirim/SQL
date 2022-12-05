@@ -81,6 +81,7 @@ CREATE TABLE "alanparadise/nw"."shoppers"
 INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
         VALUES ('LATIF', '800-221')
 ```
+## Part One: Query Problems Using the “alanparadise/cm” repo
 ##### 1. List  the names of the cities in alphabetical order where Classic Models has offices. (7)
 ```
 
@@ -156,150 +157,32 @@ WHERE (Firstname || ' ' || Lastname) = 'Diane Murphy' or (Firstname || ' ' || La
 ```
 
 ```
-##### 
+## Part Two: Query Problems Using your demo_repo
+##### 1. Create a NEW table named “TopCustomers” with three columns: CustomerNumber (integer), ContactDate (DATE) and  OrderTotal (a real number.)  None of these columns can be NULL.
 ```
 
 ```
-##### 
+##### 2. Populate the new table “TopCustomers” with the CustomerNumber, today’s date, and the total value of all their orders (PriceEach * quantityOrdered) for those customers whose order total value is greater than $140,000. (should insert 10 rows )  
 ```
 
 ```
-##### 
+##### 3. List the contents of the TopCustomers table in descending OrderTotal sequence. (10) 
 ```
 
 ```
-##### 
+##### 4. Add a new column to the TopCustomers table called OrderCount (integer).
 ```
 
 ```
-##### 
+##### 5. Update the Top Customers table, setting the OrderCount to a random number between 1 and 10. Hint:  use (RANDOM() *10)
 ```
 
 ```
-##### 
+##### 6. List the contents of the TopCustomers table in descending OrderCount sequence. (10 rows)
 ```
 
 ```
-##### 
+##### 7. Drop the TopCustomers table. (no answer set)
 ```
 
 ```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-##### 
-```
-
-```
-
-
-
-
-
-
-
