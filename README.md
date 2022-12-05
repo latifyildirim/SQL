@@ -158,7 +158,7 @@ WHERE reportsto is NULL;
 ```
 SELECT   ProductName
 FROM "alanparadise/cm"."products" 
-WHERE Productline = 'Classic Cars';
+WHERE Productline = 'Classic Cars' and productname like '%195%'; 
 ```
 ##### 11. List the month name and the total number of orders for the month in 2004 in which ClassicModels customers placed the most orders. (1)
 ```
