@@ -162,46 +162,83 @@ WHERE Productline = 'Classic Cars' and productname like '%195%';
 ```
 ##### 11. List the month name and the total number of orders for the month in 2004 in which ClassicModels customers placed the most orders. (1)
 ```
-
+SELECT  to_char(o.ordernumber, 'month') as Month, count(o.ordernumber) as Total
+    FROM "alanparadise/cm"."orders" o JOIN
+        "alanparadise/cm"."orderdetails" d ON o."ordernumber" = d."ordernumber" JOIN
+        "alanparadise/cm"."products" p ON d."productcode" = p."productcode"
+WHERE p.productline = 'Classic Cars' and o.orderdate like "2004%"
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 1;
 ```
 ##### 12. List the firstname, lastname of employees who are Sales Reps who have no assigned customers.  (2)   
 ```
-
+SELECT  firstname, lastname
+    FROM "alanparadise/cm"."employees" e LEFT JOIN
+        "alanparadise/cm"."Customers" c ON e."employeenumber" = c."salesrepemployeenumber"
+WHERE  c."salesrepemployeenumber" is NULL
 ```
 ##### 13. List the customername of customers from Switzerland with no orders. (2)
 ```
-
+SELECT  customername 
+    FROM "alanparadise/cm"."Customers" c LEFT JOIN
+        "alanparadise/cm"."orders" o ON c."customernumber" = o."customernumber"
+WHERE  country = 'Switzerland' and o."customernumber" is NULL
 ```
 ##### 14. List the customername and total quantity of products ordered for customers who have ordered more than 1650 products across all their orders.  (8)
 ```
-
+SELECT  c.customername, sum("quantityordered") as topala
+    FROM "alanparadise/cm"."Customers" c JOIN
+        "alanparadise/cm"."orders" o ON c."customernumber" = o."customernumber" JOIN
+        "alanparadise/cm"."orderdetails" d ON o."ordernumber" = d."ordernumber" 
+GROUP BY 1
+HAVING sum("quantityordered") > 1650;
 ```
 ## Part Two: Query Problems Using your demo_repo
 ##### 1. Create a NEW table named “TopCustomers” with three columns: CustomerNumber (integer), ContactDate (DATE) and  OrderTotal (a real number.)  None of these columns can be NULL.
 ```
-
+CREATE TABLE "latif/demo"."TopCustomers"
+(
+    CustomerNumber int NOT NULL,
+    ContactDate    date NOT NULL,
+    OrderTotal     real NOT NULL
+)
 ```
 ##### 2. Populate the new table “TopCustomers” with the CustomerNumber, today’s date, and the total value of all their orders (PriceEach * quantityOrdered) for those customers whose order total value is greater than $140,000. (should insert 10 rows )  
 ```
-
+INSERT INTO "latif/demo"."TopCustomers" 
+(SELECT  c."customernumber", DATE(NOW()), sum(PriceEach * quantityOrdered)
+    FROM "latif/demo"."customers" c JOIN 
+         "latif/demo"."orders" o ON c."customernumber" = o."customernumber" JOIN
+         "latif/demo"."orderdetails" d ON o."ordernumber" = d."ordernumber" 
+GROUP BY 1
+HAVING sum(PriceEach * quantityOrdered) > 140000
+LIMIT 10);
 ```
 ##### 3. List the contents of the TopCustomers table in descending OrderTotal sequence. (10) 
 ```
-
+SELECT  *
+    FROM "latif/demo"."TopCustomers"
+ORDER BY 3 DESC;
 ```
 ##### 4. Add a new column to the TopCustomers table called OrderCount (integer).
 ```
-
+ALTER TABLE "latif/demo"."TopCustomers"
+ADD COLUMN  "OrderCount" int  NULL
 ```
 ##### 5. Update the Top Customers table, setting the OrderCount to a random number between 1 and 10. Hint:  use (RANDOM() *10)
 ```
-
+UPDATE "latif/demo"."TopCustomers" 
+SET "OrderCount" = (RANDOM() *10)
 ```
 ##### 6. List the contents of the TopCustomers table in descending OrderCount sequence. (10 rows)
 ```
-
+SELECT  *
+    FROM "latif/demo"."TopCustomers"
+ORDER BY 4 DESC
+LIMIT 10;
 ```
 ##### 7. Drop the TopCustomers table. (no answer set)
 ```
-
+DROP TABLE  "latif/demo"."TopCustomers"
 ```
