@@ -84,7 +84,16 @@ INSERT INTO "alanparadise/nw"."shoppers" (shoppername, phone)
 ## Part One: Query Problems Using the “alanparadise/cm” repo
 ##### 1. List  the names of the cities in alphabetical order where Classic Models has offices. (7)
 ```
-
+SELECT  of.city, p.productline
+    FROM "alanparadise/cm"."offices" of JOIN
+        "alanparadise/cm"."employees" e ON of."officecode" = e."officecode" JOIN
+        "alanparadise/cm"."Customers" c ON e."employeenumber" = c."salesrepemployeenumber" JOIN
+        "alanparadise/cm"."orders" o ON c."customernumber" = o."customernumber" JOIN
+        "alanparadise/cm"."orderdetails" d ON o."ordernumber" = d."ordernumber" JOIN
+        "alanparadise/cm"."products" p ON d."productcode" = p."productcode"
+WHERE p.productline = 'Classic Cars'
+GROUP BY 1,2
+ORDER BY 1;
 ``` 
 ##### 2. List the EmployeeNumber, LastName, FirstName, Extension for all employees working out of the Paris office. (5)
 ```
